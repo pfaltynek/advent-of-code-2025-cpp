@@ -2,7 +2,9 @@
 #define COORD_HPP
 
 #include <algorithm>
+#include <cmath>
 #include <stdint.h>
+
 
 typedef struct COORD2D {
 	int32_t x, y;
@@ -135,6 +137,20 @@ typedef struct COORD3D {
 		}
 	}
 
+	inline int64_t euclidean_square_distance(const COORD3D& o) const {
+
+		int64_t tmp, result;
+
+		tmp = static_cast<int64_t>(x) - static_cast<int64_t>(o.x);
+		result = tmp * tmp;
+		tmp = static_cast<int64_t>(y) - static_cast<int64_t>(o.y);
+		result += tmp * tmp;
+		tmp = static_cast<int64_t>(z) - static_cast<int64_t>(o.z);
+		result += tmp * tmp;
+
+		return result;
+	}
+
 	inline COORD3D(const int32_t x_init, const int32_t y_init, const int32_t z_init) {
 		x = x_init;
 		y = y_init;
@@ -158,7 +174,7 @@ typedef struct COORD3D {
 			return false;
 		}
 	}
-	
+
 	std::string to_string() {
 		return "[" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + "]";
 	}
